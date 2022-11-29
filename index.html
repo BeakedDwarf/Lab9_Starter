@@ -84,6 +84,9 @@
       <button>End Timer</button>
       <button>Console Trace</button>
       <button>Trigger a Global Error</button>
+      <button>Try Catch Finally</button>
+      <button>Throw</button>
+      <button>Custome Error</button>
     </section>
   </main>
 
@@ -102,6 +105,199 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    //Part 1
+
+    function display_log(){
+      console.log("console log is pressed");
+    }
+    errorBtns[0].addEventListener("click", display_log);
+
+    function display_error(){
+      let num1 = 30;
+      let num2 = 80;
+      if(num1 > num2){
+        console.error('%d is greater than %d', num1, num2);
+      }else{
+        console.error('%d is less or equal to %d', num1, num2);
+      }
+    }
+
+    errorBtns[1].addEventListener("click", display_error);
+    let user = "";
+    function greet(){
+      console.count(user);
+      return `hi ${user}`;
+    }
+    user = "bob";
+    user = "alice";
+    errorBtns[2].addEventListener("click", greet);
+    const a = [];
+    let b = [1, 3, 3, 4, 7];
+
+    function warning_1(a, b){
+      a = b;
+      console.warn("assign value to const");
+    }
+
+    errorBtns[3].addEventListener("click", warning_1);
+
+    function assert_1(){
+      let x = 5;
+      let y = 5;
+
+      console.assert((x + y) == 11, "Expression returned false");
+    }
+
+    errorBtns[4].addEventListener("click", assert_1);
+    console.log("hello");
+    function clear_1(){
+      console.clear();
+    }
+
+    errorBtns[5].addEventListener("click", clear_1);
+
+    function dir_1(){
+      let person ={
+        name: "Big Foot",
+        age: 39,
+        hobby: "play basketball"
+      }
+      console.dir(person);
+    }
+
+    errorBtns[6].addEventListener("click", dir_1);
+
+    function dirxml_1(){
+      let person ={
+        name: "Big Foot",
+        age: 39,
+        hobby: "play basketball"
+      }
+      console.dirxml(person);
+    }
+
+    errorBtns[7].addEventListener("click", dirxml_1);
+
+    function group_s(){
+      console.log("message 1");
+      console.group();
+      console.log("message 2");
+      console.group();
+      console.log("message 3");
+    }
+
+    errorBtns[8].addEventListener("click", group_s);
+    function group_e(){
+      console.log("message 1");
+      console.group();
+      console.log("message 2");
+      console.group();
+      console.log("message 3");
+      console.groupEnd();
+      console.log("back to message 2");
+      console.groupEnd();
+      console.log("back to message 1");
+    }
+
+    errorBtns[9].addEventListener("click", group_e);
+
+    function table_1(){
+      var numbers = ["one", "two", "three"];
+      console.table(numbers);
+    }
+
+    errorBtns[10].addEventListener("click", table_1);
+
+    let timeId;
+    errorBtns[11].addEventListener("click", function(){
+      let i = 0;
+      timeId = setInterval(function(){
+        console.log('!');
+      },1000);
+    });
+
+    errorBtns[12].addEventListener("click", function(){
+      clearInterval(timeId);
+    });
+
+    function first(){
+      second();
+    }
+
+    function second(){
+      console.trace("this line is called from");
+    }
+
+    function third(){
+      first();
+    }
+
+    errorBtns[13].addEventListener("click", third);
+
+    function global_error(){
+      let a = [];
+      console.log("first ", a.length);
+      a.length();
+    }
+
+    errorBtns[14].addEventListener("click", global_error);
+
+    //step 3
+    function tryError(){
+      try{
+        document.getElementById("Is there").innerHTML="An error";
+        console.log("try");
+      }
+      catch(err){
+        console.error(err);
+      }
+      finally{
+        console.log("finally got through");
+      }
+
+    }
+    errorBtns[15].addEventListener("click", tryError);
+    function throw_1(){
+      try{
+        console.log("put in something between 2 and 5");
+        const input = prompt("Put a number between 2 and 5");
+        alert(`you put in ${input}`);
+        if(input =="") throw "is empty";
+        if(isNaN(input)) throw "not a number";
+        if(input>5) throw "too large";
+        if(input<2) throw "too small";
+      }
+      catch(err){
+        console.error("input ", err);
+      }
+    }
+
+    errorBtns[16].addEventListener("click", throw_1);
+
+    //step 4
+
+    class InValidNameError extends Error{};
+    function name_1(){
+      const validNames = ['Joe', 'Joan', 'Jim'];
+      try{
+        const input = prompt("put in a name");
+
+        alert(`${input}`);
+
+        if(!validNames.includes(input)) throw new InValidNameError;
+        console.log('Yes, it is right');
+      }
+      catch(error){
+        if(error instanceof InValidNameError){
+          console.error('This name is not valid');
+        }else{
+          console.error(error.message);
+        }
+      }
+    }
+
+    errorBtns[17].addEventListener("click", name_1);
   </script>
 </body>
 
